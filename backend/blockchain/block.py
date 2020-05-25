@@ -1,6 +1,6 @@
 import time
 
-from backend.hashing import hashing
+from backend.blockchain.hashing import hashing
 from backend.config import MINING_RATE
 
 
@@ -45,6 +45,10 @@ def check_block(prev_block, block, index=None):
     check_hash = hashing(block.timestamp, block.prev_hash, block.data, block.difficulty, block.nonce)
     if block.hash != check_hash:
         raise Exception(f'hash incorrect @ Block {index}!')
+
+
+def json_to_block(json):
+    return Block(**json)
 
 
 class Block:

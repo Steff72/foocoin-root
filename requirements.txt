@@ -1,0 +1,3 @@
+Flask==1.1.2
+pubnub==4.5.1
+cryptography==2.9.2
