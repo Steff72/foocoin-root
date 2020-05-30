@@ -83,21 +83,3 @@ class Wallet:
             encoding=serialization.Encoding.PEM,
             format=serialization.PublicFormat.SubjectPublicKeyInfo
         ).decode('utf-8')
-
-
-
-if __name__ == "__main__":
-    wallet = Wallet()
-    print(f'wallet.__dict__: {wallet.__dict__}')
-
-    signature = wallet.sign({'foo': 'bar'})
-    print(f'signature: {signature}')
-
-    valid = verify(wallet.public_key, {'foo': 'bar'}, signature)
-    print(f'valid: {valid}')
-
-    invalid = verify(Wallet().public_key, {'foo': 'bar'}, signature)
-    print(f'invalid: {invalid}')
-
-    invalid = verify(wallet.public_key, {'fo': 'bar'}, signature)
-    print(f'invalid: {invalid}')

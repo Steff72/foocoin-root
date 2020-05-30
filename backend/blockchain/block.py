@@ -43,6 +43,7 @@ def check_block(prev_block, block, index=None):
         raise Exception(f'diff adj more than 1 @ Block {index}!')
 
     check_hash = hashing(block.timestamp, block.prev_hash, block.data, block.difficulty, block.nonce)
+    
     if block.hash != check_hash:
         raise Exception(f'hash incorrect @ Block {index}!')
 
@@ -62,13 +63,3 @@ class Block:
 
     def __repr__(self):
         return f'Block: timestamp: {self.timestamp}, prev_hash: {self.prev_hash}, hash: {self.hash}, data: {self.data}, diff: {self.difficulty}, nonce: {self.nonce}'
-
-
-if __name__ == "__main__":
-    gen_block = Block(0, 'gen_prev-Hash', 'gen_hash', ['gen_data'], 3, 'gen_nonce')
-    block = mine(gen_block, 'foo')
-    block.hash = '00123a'
-
-    check_block(gen_block, block)
-
-    print(block)

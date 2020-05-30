@@ -3,8 +3,7 @@ import time
 
 from backend.config import TX_ID_LENGHT, MINING_REWARD
 
-# just for testing
-from backend.wallet.wallet import Wallet, verify
+from backend.wallet.wallet import verify
 
 
 def gen_id():
@@ -39,7 +38,7 @@ def reward_tx(miner_wallet):
     output = {}
     output[miner_wallet.address] = MINING_REWARD
 
-    return Transaction(input=input, output=output)
+    return Transaction(output=output, input=input)
 
 
 class Transaction:
@@ -95,25 +94,3 @@ class Transaction:
             'public_key': sender_wallet.public_key,
             'signature': sender_wallet.sign(self.output)
         }
-
-
-
-if __name__ == "__main__":
-    sender_wallet = Wallet()
-    tx = Transaction(sender_wallet, 'recipient', 15)
-    tx.update(sender_wallet, 'other_recipient', 9)
-    tx.update(sender_wallet, 'yet_other_recipient', 6)
-    check_tx(tx)
-    print(f'tx.__dict__: {tx.__dict__}')
-
-    tx_json = tx.__dict__
-    restored_tx = json_to_tx(tx_json)
-    print(f'restored_tx: {restored_tx.__dict__}')
-
-
-    miner_wallet = Wallet()
-    reward_tx = reward_tx(miner_wallet)
-    # reward_tx.output[miner_wallet] = 100
-    check_tx(reward_tx)
-    print('Check passed')
-    print(f'\nreward_tx: {reward_tx.__dict__}')

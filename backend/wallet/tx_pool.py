@@ -25,7 +25,6 @@ class TxPool:
         # remove tx in blockchain from tx_pool
         for block in blockchain.chain:
             for tx in block.data:
-                print(tx)
                 try: 
                     del self.tx_map[tx['id']]
                 except KeyError:

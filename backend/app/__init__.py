@@ -12,6 +12,10 @@ from backend.pubsub import PubSub
 
 
 app = Flask(__name__)
+
+# avoid sorting of output and input transaction
+app.config['JSON_SORT_KEYS'] = False
+
 foochain = Blockchain()
 wallet = Wallet(foochain)
 tx_pool = TxPool()

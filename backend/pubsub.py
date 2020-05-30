@@ -19,7 +19,7 @@ class Listener(SubscribeCallback):
 
 
     def message(self, pubnub, msg_object):
-        print(f'\n-- Channel: {msg_object.channel} | Msg: {msg_object.message}')
+        print(f'\n-- Channel: {msg_object.channel} | {msg_object.message}')
 
         if msg_object.channel == 'BLOCK':
             block = json_to_block(msg_object.message)

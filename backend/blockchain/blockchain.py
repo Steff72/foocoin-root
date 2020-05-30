@@ -21,8 +21,10 @@ def check_tx_chain(chain):
     # check input amounts of each tx according addresse's balance up to this point in time.
     tx_ids = set()
 
-    for i in range(len(chain)):
+    for i in range(1, len(chain)):
+        # start at 1 to except the gen block
         block = chain[i]
+
         reward_tx = False
 
         for tx_json in block.data:
@@ -96,17 +98,3 @@ class Blockchain:
         return json_chain
 
 
-if __name__ == "__main__":
-    foochain =  Blockchain()
-    newchain = Blockchain()
-
-    for i in range(5):
-        foochain.add(i)
-        newchain.add(i)
-        print(f'Block {i} found.')
-    newchain.add(10)
-    newchain.chain[5].prev_hash = 'bad_hash'
-
-    foochain.replace(newchain.chain)
-
-    print(foochain)
