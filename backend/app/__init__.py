@@ -3,6 +3,7 @@ import random
 import requests
 
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 
 from backend.blockchain.blockchain import Blockchain, json_to_blockchain
 from backend.wallet.wallet import Wallet
@@ -12,7 +13,8 @@ from backend.pubsub import PubSub
 
 
 app = Flask(__name__)
-
+ # Cross-origin resource sharing setup
+CORS(app, resources={ r'/*': { 'origins': 'http://localhost:3000' } })
 # avoid sorting of output and input transaction
 app.config['JSON_SORT_KEYS'] = False
 
@@ -30,6 +32,19 @@ def default():
 @app.route('/blockchain')
 def blockchain():
     return jsonify(foochain.json())
+
+
+@app.route('/blockchain/page')
+def page():
+    start = int(request.args.get('start'))
+    end = int(request.args.get('end'))
+
+    return jsonify(foochain.json()[::-1][start:end])
+
+
+@app.route('/blockchain/length')
+def length():
+    return jsonify(len(foochain.chain))
 
 
 @app.route('/blockchain/mine', methods=['POST'])
@@ -79,5 +94,12 @@ if os.environ.get('PEER') == 'True':
         print('\n -- Local chain updated.')
     except Exception as e:
         print(f'\n -- Chain sync error: {e}')
+
+if os.environ.get('SEED') == 'True':
+    for i in range(10):
+        foochain.add([
+            Transaction(Wallet(), Wallet().address, random.randint(2, 50)).__dict__,
+            Transaction(Wallet(), Wallet().address, random.randint(2, 50)).__dict__
+        ])
 
 app.run(port=PORT)
