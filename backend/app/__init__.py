@@ -79,6 +79,27 @@ def info():
     return jsonify({ 'address': wallet.address, 'balance': wallet.balance })
 
 
+@app.route('/known-addresses')
+def known_addresses():
+    known_addresses = set()
+
+    for block in foochain.chain:
+        for tx in block.data:
+            outputAdresses = tx['output'].keys()
+
+            if wallet.address in outputAdresses:
+                known_addresses.update(outputAdresses)
+
+        known_addresses.discard(wallet.address)
+
+    return jsonify(list(known_addresses))
+
+
+@app.route('/transactions')
+def transactions():
+    return jsonify(tx_pool.tx_data())
+
+
 
 PORT = 5000
 
@@ -101,5 +122,8 @@ if os.environ.get('SEED') == 'True':
             Transaction(Wallet(), Wallet().address, random.randint(2, 50)).__dict__,
             Transaction(Wallet(), Wallet().address, random.randint(2, 50)).__dict__
         ])
+
+    for i in range(3):
+        tx_pool.set_tx(Transaction(Wallet(), Wallet().address, random.randint(2,50)))
 
 app.run(port=PORT)
