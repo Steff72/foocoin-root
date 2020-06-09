@@ -60,3 +60,9 @@ input, button {
 hr {
   border-top: 1px solid white;
 }
+
+.end {
+  border: 1px solid #fff;
+  padding: 10px;
+  margin: 1%;
+}
