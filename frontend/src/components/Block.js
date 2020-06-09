@@ -20,7 +20,7 @@ const TxDisplay = ({ block }) => {
                     </div>
                 ))}
                 <br />
-                <Button variant="danger" size="sm" onClick={toggle}>Hide Tx</Button>
+                <Button variant="outline-light" size="sm" onClick={toggle}>Hide Tx</Button>
             </div>
         )
     }
@@ -28,7 +28,7 @@ const TxDisplay = ({ block }) => {
     return (
         <div>
             <br />
-            <Button variant="danger" size="sm" onClick={toggle}>Show Tx</Button>
+            <Button variant="outline-light" size="sm" onClick={toggle}>Show Tx</Button>
         </div>
     )
 }

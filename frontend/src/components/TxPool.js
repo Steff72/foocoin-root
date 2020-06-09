@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 
 import Transaction from './Transaction'
+import MyNavbar from './Navbar'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
 
@@ -74,14 +74,13 @@ const TxPool = () => {
     
     return (
         <div className="TransactionPool">
-            <Link to="/">Home</Link>
-            <hr />
+            <MyNavbar />
             <h3>Transaction Pool</h3>
             <AlertMsg />
             <TxList />
             <hr />
             <Button
-                variant="danger"
+                variant="outline-light"
                 onClick={mine}
             >
                 Mine a new Block

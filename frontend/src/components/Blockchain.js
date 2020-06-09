@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 
 import Button from 'react-bootstrap/Button'
 
 import Block from './Block'
 import { backend, RANGE } from '../config'
+import MyNavbar from './Navbar'
+
+import chain from '../assets/chain.png'
 
 
 const Blockchain = () => {
@@ -30,11 +32,15 @@ const Blockchain = () => {
 
     return (
         <div className="Blockchain">
-            <Link to="/">Home</Link>
-            <hr />
+        <MyNavbar />
             <h3>FooChain</h3>
             <div>
-                {blockchain.map((block, idx) => <Block key={idx} block={block} />)}
+                {blockchain.map((block, idx) => (
+                    <div>
+                        <Block key={idx} block={block} />
+                        <img className='Chain' src={chain} alt="chain" />
+                    </div>
+                ))}
             </div>
             <div>
                 {
@@ -44,7 +50,7 @@ const Blockchain = () => {
                         
                         return (
                             <span key={button} onClick={() => fetchPage({ start, end })}>
-                                <Button size="sm" variant="danger">
+                                <Button size="sm" variant="outline-light" className="mt-2">
                                     {button+1}
                                 </Button>{' '}
                             </span>

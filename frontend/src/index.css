@@ -1,5 +1,5 @@
 body {
-  background-color: #444;
+  background-color: #224058;
   color: #fff;
   text-align: center;
   font-size: 18px;
@@ -8,15 +8,21 @@ body {
   word-wrap: break-word;
 }
 
+.Navbar {
+  border-bottom: white 1px solid;
+  opacity: 0.9;
+}
+
 .logo {
-  width: 250px;
-  height: 250px;
+  width: 100px;
+  height: 100px;
 }
 
 .App {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 60px;
 }
 
 .WalletInfo {
@@ -25,24 +31,32 @@ body {
 
 .Block {
   border: 1px solid #fff;
-  padding: 10%;
-  margin: 2%;
+  padding: 3%;
+  margin: 1%;
+}
+
+.Chain {
+  opacity: 0.7;
 }
 
 .Transaction {
-  padding: 5%;
+  padding: 2%;
 }
 
 .Blockchain, .ConductTransaction, .TransactionPool {
   margin: 10%;
-  margin-top: 5%;
+  margin-top: 60px;
 }
 
 a, a:hover {
-  color: #e66;
-  text-decoration: underline;
+  color :white;
+  text-decoration: none
 }
 
 input, button {
   color: black;
+}
+
+hr {
+  border-top: 1px solid white;
 }
