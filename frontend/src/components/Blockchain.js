@@ -6,7 +6,7 @@ import Block from './Block'
 import { backend, RANGE } from '../config'
 import MyNavbar from './Navbar'
 
-import chain from '../assets/chain.png'
+import chain from '../assets/chain2.png'
 
 
 const Blockchain = () => {
@@ -14,12 +14,12 @@ const Blockchain = () => {
     const [length, setlength] = useState(0)
     const [slice, setslice] = useState(0)
 
-    const start = 0 * RANGE
+    const start = slice * RANGE
     const end = (slice+1) * RANGE
 
     const fetchPage = ({ start, end }) => {
         backend.get(`/blockchain/page?start=${start}&end=${end}`)
-            .then(response => setblockchain(response.data))
+            .then(response => setblockchain(prevChain => [...prevChain, ...response.data]))
 
             
         setslice(slice+1)
@@ -37,7 +37,7 @@ const Blockchain = () => {
     const MoreButton = () => {
         if (slice<length/RANGE) {
             return (
-                <Button size="sm" variant="outline-light" className="mt-2"
+                <Button variant="outline-light" className="mt-2"
                 onClick={() => {
                     fetchPage({ start, end })
                 }}>Show more</Button>

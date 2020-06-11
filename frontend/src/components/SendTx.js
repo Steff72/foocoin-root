@@ -85,7 +85,7 @@ const SendTx = () => {
             </FormGroup>
             <div>
                 <Button
-                    variant="danger"
+                    variant="outline-light"
                     onClick={submitTx}
                 >Submit</Button>
             </div>
