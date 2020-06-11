@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import Transaction from './Transaction'
 import MyNavbar from './Navbar'
+import Footer from './Footer'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
 
@@ -59,7 +60,7 @@ const TxPool = () => {
     const AlertMsg = () => {
         if (showAlert) {
             return (
-                <Alert variant="danger" onClose={() => {
+                <Alert variant="dark" onClose={() => {
                     setshowAlert(false)
                     history.push('/blockchain')
                 }} dismissible>
@@ -85,6 +86,7 @@ const TxPool = () => {
             >
                 Mine a new Block
             </Button>
+            <Footer />
         </div>
     )
 }

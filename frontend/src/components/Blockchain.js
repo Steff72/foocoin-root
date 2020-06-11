@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button'
 import Block from './Block'
 import { backend, RANGE } from '../config'
 import MyNavbar from './Navbar'
+import Footer from './Footer'
 
 import chain from '../assets/chain2.png'
 
@@ -43,23 +44,24 @@ const Blockchain = () => {
                 }}>Show more</Button>
             )
         }
-        return <div className="end">End of the FooChain</div>
+        return <div className="end">Genesis of the FooChain</div>
     }
 
 
     return (
         <div className="Blockchain">
-        <MyNavbar />
-            <h3>FooChain</h3>
-            <div>
-                {blockchain.map((block, idx) => (
-                    <div key={idx}>
-                        <Block block={block} />
-                        <img className='Chain' src={chain} alt="chain" />
-                    </div>
-                ))}
-            </div>
-            <MoreButton />
+            <MyNavbar />
+                <h3>FooChain</h3>
+                <div>
+                    {blockchain.map((block, idx) => (
+                        <div key={idx}>
+                            <Block block={block} />
+                            <img className='Chain' src={chain} alt="chain" />
+                        </div>
+                    ))}
+                </div>
+                <MoreButton />
+            <Footer />
         </div>
     )
 }

@@ -13,20 +13,28 @@ body {
   opacity: 0.9;
 }
 
+.Footer {
+  height: 45px;
+  border-top: white 1px solid;
+}
+
 .logo {
   width: 100px;
   height: 100px;
 }
 
-.App {
-  display: flex;
-  flex-direction: column;
+.App {  
   align-items: center;
   margin-top: 60px;
 }
 
-.WalletInfo {
-  width: 500px;
+.Walletinfo {
+  margin-bottom: 25px;
+}
+
+.Send-Tx {
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
 .Block {
@@ -43,7 +51,7 @@ body {
   padding: 2%;
 }
 
-.Blockchain, .ConductTransaction, .TransactionPool {
+.Blockchain, .TransactionPool {
   margin: 10%;
   margin-top: 60px;
 }
@@ -51,10 +59,6 @@ body {
 a, a:hover {
   color :white;
   text-decoration: none
-}
-
-input, button {
-  color: black;
 }
 
 hr {

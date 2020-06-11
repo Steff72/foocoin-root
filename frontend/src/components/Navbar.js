@@ -28,6 +28,7 @@ const MyNavbar = () => {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="ml-auto mr-5">
+                <Nav.Link href="/">Wallet</Nav.Link>
                     <Nav.Link href="/blockchain">FooChain</Nav.Link>
                     <Nav.Link href="/transactions">Open Tx Pool</Nav.Link>
                 </Nav>

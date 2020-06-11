@@ -1,40 +1,30 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react'
+
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 import MyNavbar from './Navbar'
-
-import logo from '../assets/logo.png'
-import { backend } from '../config'
+import Footer from './Footer'
+import WalletInfo from './WalletInfo'
+import SendTx from './SendTx'
 
 
 const App = () => {
-  const [walletInfo, setwalletInfo] = useState({})
-
-  useEffect( () => {
-    backend.get('/wallet/info')
-      .then(response => setwalletInfo(response.data))
-
-    return () => {
-      // cleanup
-    }
-  }, [])
-
-  const { address, balance } = walletInfo
-  
   return (
     <div className="App">
-    <MyNavbar />
-      <img className='logo' src={logo} alt="logo" />
-      <h3>FooCoin</h3>
-      <hr />
-      <Link to="/blockchain">Explore the Blockchain</Link>
-      <Link to="/send-tx">Make a Transaction</Link>
-      <Link to="/transactions">Transaction Pool</Link>
-      <hr />
-      <div className="WalletInfo">
-        <div>Address: {address}</div>
-        <div>Balance: {balance} FOC</div>
-      </div>
+      <MyNavbar />
+      <Container>
+        <Row>
+          <Col md={4}>
+            <WalletInfo />
+          </Col>
+          <Col md={8}>
+            <SendTx />
+          </Col>
+        </Row>
+      </Container>
+      <Footer />
     </div>
   );
 }

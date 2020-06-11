@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 
 import FormGroup from 'react-bootstrap/FormGroup'
 import FormControl from 'react-bootstrap/FormControl'
@@ -32,7 +31,7 @@ const SendTx = () => {
     const AlertMsg = () => {
         if (showAlert) {
             return (
-                <Alert variant="danger" onClose={() => {
+                <Alert variant="dark" onClose={() => {
                     setshowAlert(false)
                     history.push('/transactions')
                 }} dismissible>
@@ -62,9 +61,7 @@ const SendTx = () => {
 
 
     return (
-        <div className="ConductTransaction">
-            <Link to="/">Home</Link>
-            <hr />
+        <div className="Send-Tx">
             <h3>Make a Transaction</h3>
             <AlertMsg />
             <FormGroup>
