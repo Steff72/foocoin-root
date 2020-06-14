@@ -126,4 +126,4 @@ if os.environ.get('SEED') == 'True':
     for i in range(3):
         tx_pool.set_tx(Transaction(Wallet(), Wallet().address, random.randint(2,50)))
 
-app.run(host='0.0.0.0' port=PORT)
+app.run(host='0.0.0.0')
