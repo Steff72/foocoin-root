@@ -5,6 +5,9 @@ import requests
 from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
 
+import sys
+sys.path.append("path_to_directory")
+
 from backend.blockchain.blockchain import Blockchain, json_to_blockchain
 from backend.wallet.wallet import Wallet
 from backend.wallet.transaction import Transaction, reward_tx
