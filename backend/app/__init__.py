@@ -2,7 +2,7 @@ import os
 import random
 import requests
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
 
 from backend.blockchain.blockchain import Blockchain, json_to_blockchain
@@ -14,7 +14,7 @@ from backend.pubsub import PubSub
 
 app = Flask(__name__)
  # Cross-origin resource sharing setup
-CORS(app, resources={ r'/*': { 'origins': 'http://localhost:3000' } })
+CORS(app, resources={ r'/*': { 'origins': '*' } })
 # avoid sorting of output and input transaction
 app.config['JSON_SORT_KEYS'] = False
 
@@ -26,15 +26,15 @@ pubsub = PubSub(foochain, tx_pool)
 
 @app.route('/')
 def default():
-    return 'Welcome to Foochain'
+    return render_template('index.html')
 
 
-@app.route('/blockchain')
+@app.route('/api/blockchain')
 def blockchain():
     return jsonify(foochain.json())
 
 
-@app.route('/blockchain/page')
+@app.route('/api/blockchain/page')
 def page():
     start = int(request.args.get('start'))
     end = int(request.args.get('end'))
@@ -42,12 +42,12 @@ def page():
     return jsonify(foochain.json()[::-1][start:end])
 
 
-@app.route('/blockchain/length')
+@app.route('/api/blockchain/length')
 def length():
     return jsonify(len(foochain.chain))
 
 
-@app.route('/blockchain/mine', methods=['POST'])
+@app.route('/api/blockchain/mine', methods=['POST'])
 def mine():
     tx_data = tx_pool.tx_data()
     tx_data.append(reward_tx(wallet).__dict__)
@@ -59,7 +59,7 @@ def mine():
     return jsonify(block.__dict__)
 
 
-@app.route('/wallet/transact', methods=['POST'])
+@app.route('/api/wallet/transact', methods=['POST'])
 def transact():
     tx_data = request.get_json()
     tx = tx_pool.existing_tx(wallet.address)
@@ -74,12 +74,12 @@ def transact():
     return jsonify(tx.__dict__)
 
 
-@app.route('/wallet/info')
+@app.route('/api/wallet/info')
 def info():
     return jsonify({ 'address': wallet.address, 'balance': wallet.balance })
 
 
-@app.route('/known-addresses')
+@app.route('/api/known-addresses')
 def known_addresses():
     known_addresses = set()
 
@@ -95,19 +95,19 @@ def known_addresses():
     return jsonify(list(known_addresses))
 
 
-@app.route('/transactions')
+@app.route('/api/transactions')
 def transactions():
     return jsonify(tx_pool.tx_data())
 
 
 
-PORT = 5000
+PORT = 5001
 
 if os.environ.get('PEER') == 'True':
     PORT = random.randint(5001, 6000)
 
     # synchronize blockchain at startup for PEERS
-    response = requests.get('http://localhost:5000/blockchain')
+    response = requests.get('http://localhost:5001/api/blockchain')
     blockchain = json_to_blockchain(response.json())
 
     try:

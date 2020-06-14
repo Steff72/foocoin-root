@@ -4,9 +4,10 @@ import FormGroup from 'react-bootstrap/FormGroup'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAddressBook, faPaperPlane, faCoins } from '@fortawesome/free-solid-svg-icons'
 
 import { backend } from '../config'
-import history from '../history'
 
 const SendTx = () => {
     const [amount, setamount] = useState(0)
@@ -14,9 +15,19 @@ const SendTx = () => {
     const [showAlert, setshowAlert] = useState(false)
     const [knownAddresses, setknownAddresses] = useState([])
 
+    const fetchKnownAddresses = async () => {
+        const response = await backend.get('/known-addresses')
+        setknownAddresses(response.data)
+    }
+
     useEffect(() => {
-        backend.get('/known-addresses')
-            .then(response => setknownAddresses(response.data))
+        fetchKnownAddresses()
+
+        // check Info every 5 seconds
+        const iId = setInterval(fetchKnownAddresses, 5000)
+
+        // cleanup 
+        return () => clearInterval(iId)
     }, [])
 
     const handleRecipient = event => setrecipient(event.target.value)
@@ -33,7 +44,8 @@ const SendTx = () => {
             return (
                 <Alert variant="dark" onClose={() => {
                     setshowAlert(false)
-                    history.push('/transactions')
+                    setamount(0)
+                    setrecipient('')
                 }} dismissible>
                 Transaction sent!
                 </Alert>
@@ -55,14 +67,13 @@ const SendTx = () => {
             </div>
             )
         }
-
         return <div>None so far...</div>
     }
 
 
     return (
         <div className="Send-Tx">
-            <h3>Make a Transaction</h3>
+            <h3>Make a Transaction  <FontAwesomeIcon icon={faCoins} /></h3>
             <AlertMsg />
             <FormGroup>
                 <FormControl 
@@ -84,10 +95,10 @@ const SendTx = () => {
                 <Button
                     variant="outline-light"
                     onClick={submitTx}
-                >Submit</Button>
+                >Submit  <FontAwesomeIcon icon={faPaperPlane} /></Button>
             </div>
             <br />
-            <h4>Known Addresses</h4>
+            <h4>Known Addresses  <FontAwesomeIcon icon={faAddressBook} /></h4>
             <KnownAddresses />
         </div>
     )

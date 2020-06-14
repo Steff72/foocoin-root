@@ -9,7 +9,7 @@ const Footer = () => {
 
     return (
         <Container>
-            <Navbar fixed="bottom" bg="dark" className="Footer justify-content-center">
+            <Navbar fixed="bottom" className="Footer justify-content-center">
             Copyright &copy;
             <span>{year}</span> &nbsp;
             FooCoin

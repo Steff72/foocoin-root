@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react'
 
 import Transaction from './Transaction'
-import MyNavbar from './Navbar'
-import Footer from './Footer'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHammer, faSwimmingPool } from '@fortawesome/free-solid-svg-icons'
 
 
 import { backend } from '../config'
-import history from '../history'
 
 
 const TxPool = () => {
@@ -19,14 +18,13 @@ const TxPool = () => {
     const fetchTx = async () => {
         const response = await backend.get('/transactions')
         settx(response.data)
-        console.log(response.data)
     }
 
     useEffect(() => {
         fetchTx()
 
-        // check for new Tx every 10 seconds
-        const iId = setInterval(fetchTx, 10000)
+        // check for new Tx every 5 seconds
+        const iId = setInterval(fetchTx, 5000)
 
         // stop checking when component unmounts
         return () => clearInterval(iId)
@@ -36,7 +34,7 @@ const TxPool = () => {
         await backend.post('/blockchain/mine')
         
         setshowAlert(true)
-        fetchTx()
+        // window.location.reload()
     }
 
     const TxList = () => {
@@ -62,7 +60,7 @@ const TxPool = () => {
             return (
                 <Alert variant="dark" onClose={() => {
                     setshowAlert(false)
-                    history.push('/blockchain')
+                    settx('')
                 }} dismissible>
                 New Block mined!
                 </Alert>
@@ -75,8 +73,7 @@ const TxPool = () => {
     
     return (
         <div className="TransactionPool">
-            <MyNavbar />
-            <h3>Transaction Pool</h3>
+            <h3>Transaction Pool  <FontAwesomeIcon icon={faSwimmingPool} /></h3>
             <AlertMsg />
             <TxList />
             <hr />
@@ -84,9 +81,8 @@ const TxPool = () => {
                 variant="outline-light"
                 onClick={mine}
             >
-                Mine a new Block
+                Mine a new Block <FontAwesomeIcon icon={faHammer} />
             </Button>
-            <Footer />
         </div>
     )
 }
