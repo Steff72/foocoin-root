@@ -101,13 +101,13 @@ def transactions():
 
 
 
-PORT = 5001
+PORT = 5000
 
 if os.environ.get('PEER') == 'True':
     PORT = random.randint(5001, 6000)
 
     # synchronize blockchain at startup for PEERS
-    response = requests.get('http://localhost:5001/api/blockchain')
+    response = requests.get('http://localhost:5000/api/blockchain')
     blockchain = json_to_blockchain(response.json())
 
     try:
@@ -126,4 +126,4 @@ if os.environ.get('SEED') == 'True':
     for i in range(3):
         tx_pool.set_tx(Transaction(Wallet(), Wallet().address, random.randint(2,50)))
 
-app.run(port=PORT)
+app.run(host='0.0.0.0' port=PORT)
