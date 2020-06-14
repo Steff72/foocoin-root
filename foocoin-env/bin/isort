@@ -1,4 +1,4 @@
-#!/Users/steff/Documents/Coding/CS50W/final/foocoin/foocoin-env/bin/python3
+#!/Users/steff/Documents/Coding/CS50W/final/foocoin-root/foocoin-env/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
