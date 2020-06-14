@@ -117,14 +117,14 @@ def transactions():
 #         print(f'\n -- Chain sync error: {e}')
 
 # if os.environ.get('SEED') == 'True':
-# for i in range(10):
-#     foochain.add([
-#         Transaction(Wallet(), Wallet().address, random.randint(2, 50)).__dict__,
-#         Transaction(Wallet(), Wallet().address, random.randint(2, 50)).__dict__
-#     ])
+for i in range(10):
+    foochain.add([
+        Transaction(Wallet(), Wallet().address, random.randint(2, 50)).__dict__,
+        Transaction(Wallet(), Wallet().address, random.randint(2, 50)).__dict__
+    ])
 
-# for i in range(3):
-#     tx_pool.set_tx(Transaction(Wallet(), Wallet().address, random.randint(2,50)))
+for i in range(3):
+    tx_pool.set_tx(Transaction(Wallet(), Wallet().address, random.randint(2,50)))
 
 
 if __name__ == "__main__":
