@@ -6,6 +6,10 @@ from backend.config import TX_ID_LENGHT, MINING_REWARD
 from backend.wallet.wallet import verify
 
 
+def time_ns():
+    return int(time.time()*1000000000)
+
+
 def gen_id():
     return str(uuid.uuid4())[0:TX_ID_LENGHT]
 
@@ -54,7 +58,7 @@ class Transaction:
         self.id = id or gen_id()
         self.output = output or self.gen_output(sender_wallet, recipient, amount)
         self.input = input or {
-            'timestamp': time.time_ns(),
+            'timestamp': time_ns(),
             'amount': sender_wallet.balance,
             'address': sender_wallet.address,
             'public_key': sender_wallet.public_key,
@@ -88,7 +92,7 @@ class Transaction:
         self.output[sender_wallet.address] -= amount
 
         self.input = {
-            'timestamp': time.time_ns(),
+            'timestamp': time_ns(),
             'amount': sender_wallet.balance,
             'address': sender_wallet.address,
             'public_key': sender_wallet.public_key,

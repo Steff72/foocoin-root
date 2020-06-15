@@ -4,16 +4,20 @@ from backend.blockchain.hashing import hashing
 from backend.config import MINING_RATE
 
 
+def time_ns():
+    return int(time.time()*1000000000)
+
+
 def mine(prev_block, data):
     nonce = 0
-    timestamp = time.time_ns()
+    timestamp = time_ns()
     diff = adj_diff(prev_block, timestamp)
     hash = hashing(timestamp, prev_block.hash, data, diff, nonce)
 
 
     while hash[0:diff] != '0' * diff:
         nonce += 1
-        timestamp = time.time_ns()
+        timestamp = time_ns()
         diff = adj_diff(prev_block, timestamp)
         hash = hashing(timestamp, prev_block.hash, data, diff, nonce)
 
