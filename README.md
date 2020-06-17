@@ -2,11 +2,9 @@
 
 activate venv: source foocoin-env/bin/activate
 
-run server: python3 -m backend.app
+for running at localhost, change host to localhost on 583...
 
-run peer server: export PEER=True && python3 -m backend.app
-
-run server with data seed: export SEED=True && python3 -m backend.app
+run server: python3 application.py
 
 
 see requirements.txt for installed python modules
